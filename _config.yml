@@ -6,7 +6,7 @@ baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://inu-capstone-project-zzzk.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 repository: INU-Capstone-Project-ZZZK/inu-capstone-project-zzzk.github.io # for github-metadata
 
-permalink: pretty
+# permalink: pretty
 
 # Aux links for the upper right navigation
 aux_links:
