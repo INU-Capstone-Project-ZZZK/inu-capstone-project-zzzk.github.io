@@ -17,7 +17,7 @@ Table of contents
 
 ---
 
-View this site's [\_config.yml](https://github.com/just-the-docs/just-the-docs/tree/main/_config.yml) file as an example.
+View this site's [\_config.yml](https://github.com/INU-Capstone-Project-ZZZK/inu-capstone-project-zzzk.github.io/tree/main/_config.yml) file as an example.
 
 ## 팀원
 
