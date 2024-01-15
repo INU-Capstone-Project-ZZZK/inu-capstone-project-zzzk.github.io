@@ -7,10 +7,10 @@ permanlink: /
 ---
 
 # Test
-{: .no_toc }
+{: .fs-8 }
 
 Table of contents
-{: .no_toc .text-delta }
+{: .fs-6 .fw-300 }
 
 1. TOC
 {:toc}
