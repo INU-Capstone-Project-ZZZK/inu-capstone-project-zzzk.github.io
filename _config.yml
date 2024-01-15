@@ -6,7 +6,7 @@ baseurl: "/" # the subpath of your site, e.g. /blog
 url: "https://inu-capstone-project-zzzk.github.io" # the base hostname & protocol for your site, e.g. http://example.com
 repository: INU-Capstone-Project-ZZZK/inu-capstone-project-zzzk.github.io # for github-metadata
 
-
+permalink: pretty
 
 # Aux links for the upper right navigation
 aux_links:
@@ -74,3 +74,30 @@ callouts:
   warning:
     title: Warning
     color: red
+
+
+# Google Analytics Tracking (optional)
+# Supports a CSV of tracking ID strings (eg. "UA-1234567-89,G-1AB234CDE5")
+# Note: the main Just the Docs site does *not* use Google Analytics.
+# ga_tracking: UA-2709176-10,G-5FG1HLH3XQ
+# ga_tracking_anonymize_ip: true # Use GDPR compliant Google Analytics settings (true/nil by default)
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-github-metadata
+  - jekyll-include-cache
+
+kramdown:
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
+compress_html:
+  clippings: all
+  comments: all
+  endings: all
+  startings: []
+  blanklines: false
+  profile: false
+  # ignore:
+  #   envs: all
