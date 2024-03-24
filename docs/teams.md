@@ -8,6 +8,7 @@ nav_order: 1
 
 소속 대학
 {: .fs-6 .text-delta }
+
 인천대학교 임베디드시스템공학과
 
 {: .note }
