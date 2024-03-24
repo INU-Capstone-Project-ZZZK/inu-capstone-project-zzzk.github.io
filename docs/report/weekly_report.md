@@ -6,6 +6,6 @@ has_children: true
 permalink: /docs/report
 ---
 
-# Child
+# 주간 보고서
 {: .no_toc }
 
