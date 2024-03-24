@@ -12,10 +12,11 @@ Table of contents
 {: .fs-6 .fw-300 }
 
 
-1. TOC
 {:toc}
 
+
 View this site's [\_config.yml](https://github.com/INU-Capstone-Project-ZZZK/inu-capstone-project-zzzk.github.io/tree/main/_config.yml) file as an example.
+
 
 ---
 ## Overview
