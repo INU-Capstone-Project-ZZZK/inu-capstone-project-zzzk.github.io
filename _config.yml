@@ -8,8 +8,8 @@ repository: INU-Capstone-Project-ZZZK/inu-capstone-project-zzzk.github.io # for 
 
 # Aux links for the upper right navigation
 aux_links:
-  "Just the Docs on GitHub":
-    - "//github.com/INU-Capstone-Project-ZZZK/inu-capstone-project-zzzk.github.io.git"
+  "개발 저장소 바로가기":
+    - "https://github.com/INU-Capstone-Project-ZZZK/Project_Github"
 
 # Footer "Edit this page on GitHub" link text
 gh_edit_link: true # show or hide edit this page link
