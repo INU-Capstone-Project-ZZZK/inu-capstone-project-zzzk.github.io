@@ -19,6 +19,7 @@ nav_order: 1
 
 # 구성원
 ## 박종현
+<img src="/assets/profile/박종현_증명사진.jpg" alt="박종현_증명사진" width="350" height="400">
 Github : [https://github.com/JongHyun9999](https://github.com/JongHyun9999)
 ```yaml
 # 테스트
