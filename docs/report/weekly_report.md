@@ -1,8 +1,9 @@
 ---
 layout: default
-title: Weekly_Report-Child
-parent: Weekly_Report
+title: Weekly_Report
 nav_order: 1
+has_children: true
+permalink: /docs/report
 ---
 
 # Child
