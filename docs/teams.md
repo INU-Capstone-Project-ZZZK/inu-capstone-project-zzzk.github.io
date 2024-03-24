@@ -6,8 +6,8 @@ nav_order: 1
 
 # 팀 소개
 
-소속 대학
 {: .fs-6 .text-delta }
+소속 대학
 
 인천대학교 임베디드시스템공학과
 
@@ -19,12 +19,12 @@ nav_order: 1
 
 # 구성원
 ## 박종현
+Github : [https://github.com/JongHyun9999](https://github.com/JongHyun9999)
 ```yaml
 # 테스트
 Student : 박종현
 St.Number : 201901749
 Email : whdgus120213@inu.ac.kr
-Github : [https://github.com/JongHyun9999](https://github.com/JongHyun9999)
 ```
 
 ---
