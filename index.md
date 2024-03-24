@@ -16,7 +16,7 @@ permanlink: /
 {:toc}
 
 
-View this site's [\_config.yml](https://github.com/INU-Capstone-Project-ZZZK/inu-capstone-project-zzzk.github.io/tree/main/_config.yml) file as an example.
+자세한 내용은 우측 깃허브 사이트의 [주제 선정 보고서](https://github.com/INU-Capstone-Project-ZZZK/Project_Github) 를 참조 바람.
 
 
 ---
