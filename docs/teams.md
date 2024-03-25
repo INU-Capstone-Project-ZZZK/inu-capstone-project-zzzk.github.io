@@ -30,9 +30,11 @@ Email : whdgus120213@inu.ac.kr
 ---
 
 ## 이제욱
+Github : [https://github.com/Leejeuk213](https://github.com/Leejeuk213)
 ```yaml
 Student : 이제욱
-Email : //기입
+St.Number : 201901761
+Email : dlwpdnr213@naver.com
 ```
 
 ---
