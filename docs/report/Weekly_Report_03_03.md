@@ -18,7 +18,16 @@ nav_order: 1
 
 ## 주간 작업 내용
 
+
+{: .note }
 3월 3주차 작업내용이다. 3주차 목요일 이후에 주제 선정 결과를 확인했기에 작업내용이 아직 많지 않아 추후 작업 배분을 좀더 신경써야 할것으로 보인다.
+
+ - 03.21(목) 16:30 ~ 19:00 : 디바이스 3D프린트 설계도 완성 및 스트랩 변경
+
+ - 03.21(목) 22:00 ~ 24:00, 03.22(금) 15:30 ~ 17:00 : 깃허브 모델 로드 및 Tensorflow Lite 변환 진행
+
+
+---
 
 ### 3D 프린팅 설계 및 스트랩 선정
 
@@ -50,6 +59,30 @@ nav_order: 1
 ---
 
 ### GRU 모델 추출 및 Flutter 앱 이식 준비
+ 가장 먼저 손목디바이스의 수면단계 판별을 위해 사전에 준비해둔 추론 모델을 사용할 것이다. 사용할 모델은 [해당 깃허브](https://github.com/cbrnr/sleepecg)에서 제공되는 사전학습이 완료된 심박수 기반 수면단계 분류 모델(GRU)이다.  
+PPG 센서에서 전처리된 심박수 데이터를 기반으로 딥러닝 모델(GRU)를 이용하여 수면 단계를 판별하는 모델이다. 해당 모델은 Tensorflow로 구성되어 있으며, Flutter 앱에 올리기 위해서는 Tensorflow Lite 버전으로 바꿔주는 단계를 거쳐야 한다.
+![저장된 모델 구성도](/assets/images/W1/p5.png)
+
+제공된 모델은 saved_model 형태의 pb파일로 갖춰져 번수 및 메타 데이터와 함께 classifier 폴더 안에 구비되어 있어 이를 Tensorflow Lite로 전환하는 과정을 거쳤다.
+
+```python
+import tensorflow as tf
+
+# SavedModel 디렉토리 경로
+saved_model_dir = 'classifier'
+
+# 변환기 생성 및 모델 로드
+converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)
+
+# 모델 변환
+tflite_model = converter.convert()
+
+# .tflite 파일로 저장
+with open('converted_model.tflite', 'wb') as f:
+    f.write(tflite_model)
+```
+ 위 코드로 변환을 시도하였으나 모델을 불러오고 변환하는 과정과 내부 레이어의 Tensor 연산 변환에서 반복적으로 에러가 발생하여 아래 코드와 같이 모델 로드와 변환기 생성, 텐서 리스트 연산 옵션 부여를 분리하여 코드를 작성하였다.
+
 
 ```python
 import tensorflow as tf
@@ -97,9 +130,9 @@ for layer in interpreter.get_tensor_details():
     print(layer['name'], layer['shape'], layer['dtype'])
 ```
 
-![](/assets/images/W1/p4.png)
+![변환이 완료된 모습](/assets/images/W1/p4.png)
 
-변환된 모델에 대해서는 추후 동일한 데이터셋을 이용하여 변환전과 후의 분류 정확도를 테스트할 것이다.
+ 차주에 Tensorflow Lite 변환된 모델을 Flutter 앱에 올리는 작업을 진행할 것이며, 추후 동일한 데이터셋을 이용하여 변환전과 후의 분류 정확도를 테스트할 것이다.
 
 ---
 
