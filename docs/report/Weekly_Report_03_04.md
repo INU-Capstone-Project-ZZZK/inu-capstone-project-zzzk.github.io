@@ -21,9 +21,9 @@ nav_order: 1
 
 {: .note }
 3월 4주차 작업내용이다. 팀원별 업무 내용은 다음과 같다.
-- 박종현 : Rasberry Pi Pico 개발환경 구축 / Pico - Flutter 블루투스 통신 구축
-- 이제욱 : PPG Signal 전처리 코드 분석 및 MicroPython&C 코드 변환
-- 이태우 : TFLite 모델의 Flutter 업로드 테스트
+박종현 : Rasberry Pi Pico 개발환경 구축 / Pico - Flutter 블루투스 통신 구축
+이제욱 : PPG Signal 전처리 코드 분석 및 MicroPython&C 코드 변환
+이태우 : TFLite 모델의 Flutter 업로드 테스트
 
  - 03.26(화) 17:30 ~ 22:00 : PPG Signal 전처리 코드 분석 및 변환 가능성 판단
  
