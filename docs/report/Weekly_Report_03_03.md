@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Weekly_Report_03_03
+title: 3월 3주차
 parent: Weekly_Report
 nav_order: 1
 ---
