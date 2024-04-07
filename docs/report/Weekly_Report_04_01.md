@@ -200,7 +200,7 @@ if __name__ == "__main__":
 
 ```
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/32e27ca3-5da9-4e2b-89e6-fd48fb4aa406/Untitled.png)
+![](/assets/images/W3/pj1.png)
 
 ### Flutter(Application)
 
@@ -213,7 +213,7 @@ if __name__ == "__main__":
  아래에서 위젯 디자인부터 프로바이더 및 라이브러리 이용을 위한 블루투스 세팅 등의 자세한 코드가 많지만 핵심 코드만 추려서 설명하도록 하겠다.
 (현재 코드에서 사용중인 유일한 상태관리 기법은 Provider이며, ChangeNotifier 기반의 SensorDataProvider를 생성하여 사용중이다. 자세한 코드는 깃허브에 업로드 하였음.)
 
-![Screenshot_20240407_220016.jpg](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/64156f9b-1899-4427-94d0-b71455475c5c/Screenshot_20240407_220016.jpg)
+![](/assets/images/W3/pj2.png)
 
 - **Scan**
 
@@ -264,7 +264,7 @@ void flutterBlueInit() async {
 
 - Scan 결과로 발견 성공 사진
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/4d7234cd-3265-46e2-8ec1-8f664fb8d27b/Untitled.png)
+![](/assets/images/W3/pj3.png)
 
 - **Connect**
 
@@ -333,7 +333,7 @@ Text(
 
 - 연결 성공 및 서비스, 캐릭터리스틱 출력 사진
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/6c84739c-3084-4202-a15c-19b674cfd534/Untitled.png)
+![](/assets/images/W3/pj4.png)
 
 **미리 지정해두었던 서비스 UUID와 캐릭터리스틱 UUID가 그대로 연결이 된것 확인.**
 
@@ -383,13 +383,13 @@ ElevatedButton(
 
 **[피코로부터 데이터 수신 및 텍스트필드에 값 입력해서 전달]**
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/b3d1096c-e69c-4e14-8d1d-a3effed02afe/Untitled.png)
+![](/assets/images/W3/pj5.png)
 
 - **Pico Micropython**
 
 **[Flutter로 카운트 값 송신하는 화면 및 수신 받은 값 출력(출력창)]**
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/6632b7c6-163c-45f3-855b-e4531b7563c3/Untitled.png)
+![](/assets/images/W3/pj6.png)
 
 ### 추후 개발사항
 
@@ -407,9 +407,9 @@ ElevatedButton(
 - 학습시킬 때에 사용할 데이터셋은 이미 bpm이 구해져 있으므로 bpm을 구하는 과정은 필요치 않다.
 - (4878,2) size의 데이터로 구성되어 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/af6263f9-a76c-4f90-ba1c-6c59e786a610/Untitled.png)
+![](/assets/images/W3/p1.png)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/c3d3271b-03f2-4dff-874f-1bc896b15b8a/Untitled.png)
+![](/assets/images/W3/p2.png)
 
 ### 2. [subject-id-number]_labeled_sleep.txt
 
@@ -417,9 +417,9 @@ ElevatedButton(
 - 라벨링된 수면단계로 다중 생리학적 신호 측정 결과로 기록된다.
 - (567,2) size의 데이터로 구성되어 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/eccd17c6-d4e8-4042-9ee1-70d3639ffe5f/Untitled.png)
+![](/assets/images/W3/p3.png)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/0f6af049-a7a0-4da7-8e5a-dfa25e535816/Untitled.png)
+![](/assets/images/W3/p4.png)
 
 ## 데이터셋 전처리
 
@@ -523,15 +523,15 @@ def crop(psg_raw_collection, interval):
 
 - 심박수
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/ffde74eb-d4b2-4c60-862d-b51b275060c9/Untitled.png)
+![](/assets/images/W3/p5.png)
+
+![](/assets/images/W3/p6.png)
 
 - 수면단계
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/e86676ee-7e64-4d99-8bbe-d0e7be157216/Untitled.png)
+![](/assets/images/W3/p7.png)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/5fdfe479-c5b2-44c1-bb8b-e79ec27a2234/Untitled.png)
-
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/48b9a1e2-4e39-491d-b3fa-bcc5aa00b89e/Untitled.png)
+![](/assets/images/W3/p8.png)
 
 ### 4. 유효한 epoch 찾기
 
@@ -697,11 +697,11 @@ def build_time(valid_epochs):
 
 - 심박수와 라벨링이 매핑된 것을 확인할 수 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/0a750a60-138c-42ab-9a08-ed263a5a9943/Untitled.png)
+![](/assets/images/W3/p9.png)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/c5191ce3-921b-441a-a283-20141144a504/Untitled.png)
+![](/assets/images/W3/p10.png)
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/8f763d61-fa99-49d9-9a0a-6b7b90d4b3f1/Untitled.png)
+![](/assets/images/W3/p11.png)
 
 ## 학습 및 결과
 
@@ -777,19 +777,19 @@ def get_classifiers():
 
 - NREM 정확도
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/2bf85f1b-ba85-40e1-a47f-96be3b281b6e/Untitled.png)
+![](/assets/images/W3/p12.png)
 
 - REM 정확도
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/8d14b9a7-f3a4-4592-a6cc-32249e560eef/Untitled.png)
+![](/assets/images/W3/p13.png)
 
 - WAKE 정확도
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/c83e6a5d-6be6-41c4-ba15-838f738a1973/Untitled.png)
+![](/assets/images/W3/p14.png)
 
 - 종합 정확도
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/6b448bea-3fa9-4beb-a145-73cafaef1672/Untitled.png)
+![](/assets/images/W3/p15.png)
 
 ## To do
 
@@ -803,7 +803,7 @@ pytorch로 lstm과 같은 rnn 모델 혹은 트랜스포머 모델을 통해 학
 
 본 코드에서는 위와 같은 오류가 있다.
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/998eab35-4283-472b-8fb3-d34f2fbbbb0f/Untitled.png)
+![](/assets/images/W3/p16.png)
 
 지난 주 개발에서 작동이 잘 안되는 문제를 발견 할 수 있었다.
 
@@ -833,7 +833,7 @@ var input = List.generate(1, (_) => List.filled(36, 0.0));
 
 변경한 [1,36] tensor
 
-![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/75ab2500-912b-4389-bc13-568795e2bcba/Untitled.png)
+![](/assets/images/W3/p17.png)
 
 결과: tensor 모양은 [1,1,36]으로 하는 것이 맞기에 이에 대한 오류는 아니였다.
 
@@ -849,7 +849,7 @@ tflite_flutter의 설명을 보면 구동기기에 초기 셋팅을 해주어야
 
 https://github.com/adityojulian/LFTrack
 
-![정상 작동된 화면](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/2664885c-173e-466b-8c0f-ed5aa3cddd5e/Untitled.png)
+![](/assets/images/W3/p18.png)
 
 정상 작동된 화면
 
