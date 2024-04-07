@@ -206,9 +206,7 @@ if __name__ == "__main__":
 
 최종적으로 Flutter에서 BLE 통신을 위해 사용한 패키지는 **Flutter_blue_plus** 이다. MicroPython으로 작성한 BLE 통신코드와 굉장히 유사하며, BLE 통신의 기본인 Scanning, Connection, Subscribe까지 직관적인 API가 장점이었기에 선택하였다.
 
-[공식 문서]
-
-[flutter_blue_plus | Flutter package](https://pub.dev/packages/flutter_blue_plus)
+[flutter_blue_plus 공식문서](https://pub.dev/packages/flutter_blue_plus)
 
  아래에서 위젯 디자인부터 프로바이더 및 라이브러리 이용을 위한 블루투스 세팅 등의 자세한 코드가 많지만 핵심 코드만 추려서 설명하도록 하겠다.
 (현재 코드에서 사용중인 유일한 상태관리 기법은 Provider이며, ChangeNotifier 기반의 SensorDataProvider를 생성하여 사용중이다. 자세한 코드는 깃허브에 업로드 하였음.)
@@ -217,49 +215,45 @@ if __name__ == "__main__":
 
 - **Scan**
 
-**주변에서 advertise를 수행하는 BLE 기기들을 검색하는 함수이다.** startScan시 스캔이 시작하여 실시간으로 검색되는 디바이스들에 대하여 피코 디바이스인지 검사하고, 일치한다면 해당 디바이스 정보를 저장하였다가 connect_device 함수를 이용하여 디바이스와 페어링을 진행한다.
+**주변에서 advertise를 수행하는 BLE 기기들을 검색하는 함수이다.** startScan시 스캔이 시작하여 미리 지정한 서비스 UUID를 지니는 서비스를 검색하고, 이에 해당하는 디바이스를 피코 디바이스로 인식한다. 이후 해당 디바이스 정보를 저장하였다가 connect_device 함수를 이용하여 디바이스와 페어링을 진행한다.
+
 
 ```kotlin
 void flutterBlueInit() async {
-    // 스캔 결과 listen
-    print("스캔 시작");
-    var subscription = FlutterBluePlus.onScanResults.listen(
-      (results) {
-        if (results.isNotEmpty) {
-          ScanResult r = results.last; // the most recently found device
-          print(r.advertisementData.advName);
-          // print(
-          //     '${r.device.remoteId}: "${r.advertisementData.advName}" found!');
-          if (r.advertisementData.advName == "mpy-uart") {
-            //if (r.advertisementData.serviceUuids.contains(Guid.fromString("6e400001-b5a3-f393-e0a9-e50e24dcca9e"))) {
-            print(r.advertisementData.serviceUuids[0]);
-            print(
-                '${r.device.remoteId}: "${r.advertisementData.advName}" found!');
-            print("디바이스 : ");
-            print(r.device);
-            print("광고데이터 : ");
-            print(r.advertisementData);
-            device = r.device;
-            connect_device(device);
-          }
-        }
-      },
-      onError: (e) => print(e),
-    );
+  // 스캔 결과 listen
+  print("스캔 시작");
+  var subscription = FlutterBluePlus.onScanResults.listen(
+    (results) {
+      if (results.isNotEmpty) {
+        ScanResult r = results.last; // the most recently found device
+        print(
+            '${r.device.remoteId}: "${r.advertisementData.advName}" found!');
+        print("디바이스 : ");
+        print(r.device);
+        print("광고데이터 : ");
+        print(r.advertisementData);
+        device = r.device;
+        connect_device(device);
+      }
+    },
+    onError: (e) => print(e),
+  );
 
-    // 스캔 종료 시 위 listen 종료
-    FlutterBluePlus.cancelWhenScanComplete(subscription);
+  // 스캔 종료 시 위 listen 종료
+  FlutterBluePlus.cancelWhenScanComplete(subscription);
 
-    // 블루투스 활성화 및 권한 부여 테스트
-    // In your real app you should use `FlutterBluePlus.adapterState.listen` to handle all states
-    await FlutterBluePlus.adapterState
-        .where((val) => val == BluetoothAdapterState.on)
-        .first;
+  // 블루투스 활성화 및 권한 부여 테스트
+  // In your real app you should use `FlutterBluePlus.adapterState.listen` to handle all states
+  await FlutterBluePlus.adapterState
+      .where((val) => val == BluetoothAdapterState.on)
+      .first;
 
-    // 스캔 시작 및 스캔 끝날때까지 기다리기
-    await FlutterBluePlus.startScan(timeout: const Duration(seconds: 7));
-    await FlutterBluePlus.isScanning.where((val) => val == false).first;
-  }
+  // 스캔 시작 및 스캔 끝날때까지 기다리기
+  await FlutterBluePlus.startScan(
+      timeout: const Duration(seconds: 7),
+      withServices: [Guid("6e400001-b5a3-f393-e0a9-e50e24dcca9e")]);
+  await FlutterBluePlus.isScanning.where((val) => val == false).first;
+}
 ```
 
 - Scan 결과로 발견 성공 사진
