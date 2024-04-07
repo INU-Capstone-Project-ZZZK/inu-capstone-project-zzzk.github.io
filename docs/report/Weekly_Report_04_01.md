@@ -841,7 +841,7 @@ var input = List.generate(1, (_) => List.filled(36, 0.0));
 
 tflite_flutter의 설명을 보면 구동기기에 초기 셋팅을 해주어야하기 때문에 문제가 발생 할 수 있다는 근거가 있었다.
 
-![초기셋팅에 대한 설명](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/ab0a0368-80a4-4e63-b278-e7d4e15afe14/Untitled.png)
+![](/assets/images/W3/p19.png)
 
 초기셋팅에 대한 설명
 
