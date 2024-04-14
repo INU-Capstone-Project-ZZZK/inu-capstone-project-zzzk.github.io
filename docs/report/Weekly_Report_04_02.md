@@ -42,52 +42,11 @@ nav_order: 1
 
 지난 주에는 간단한 classifier를 사용하는 것은 정확도가 매우 낮다는 결과가 있었다. 이번 주에는 딥러닝을 이용한 LSTM 모델을 도입하여 학습을 진행할 예정이다.
 
-데이터셋은 파일이름은 다음과 같다.
+데이터셋의 파일이름은 다음과 같다.
 ```
 46343_cosine_feature.out
 46343_hr_feature.out
 46343_psg_labels.out
-46343_time_feature.out
-759667_cosine_feature.out
-759667_hr_feature.out
-759667_psg_labels.out
-759667_time_feature.out
-781756_cosine_feature.out
-781756_hr_feature.out
-781756_psg_labels.out
-781756_time_feature.out
-844359_cosine_feature.out
-844359_hr_feature.out
-844359_psg_labels.out
-844359_time_feature.out
-1066528_cosine_feature.out
-1066528_hr_feature.out
-1066528_psg_labels.out
-1066528_time_feature.out
-1360686_cosine_feature.out
-1360686_hr_feature.out
-1360686_psg_labels.out
-1360686_time_feature.out
-1449548_cosine_feature.out
-1449548_hr_feature.out
-1449548_psg_labels.out
-1449548_time_feature.out
-1455390_cosine_feature.out
-1455390_hr_feature.out
-1455390_psg_labels.out
-1455390_time_feature.out
-1818471_cosine_feature.out
-1818471_hr_feature.out
-1818471_psg_labels.out
-1818471_time_feature.out
-2598705_cosine_feature.out
-2598705_hr_feature.out
-2598705_psg_labels.out
-2598705_time_feature.out
-2638030_cosine_feature.out
-2638030_hr_feature.out
-2638030_psg_labels.out
-2638030_time_feature.out
 ...
 ```
 여기서 4가지 카테고리로 나눌 수 있음.
@@ -235,97 +194,26 @@ epoch를 3000번 해 보았는데 그래프를 보면 에포크 1000번에서 �
 
 ![](/assets/images/W4/pj7.png)
 
-### TFLite 변환 분석
 
-[TensorFlow 연산 융합  |  TensorFlow Lite](https://www.tensorflow.org/lite/models/convert/operation_fusion?hl=ko)
 
-[TensorFlow Lite 및 TensorFlow 연산자 호환성](https://www.tensorflow.org/lite/guide/ops_compatibility?hl=ko)
+
+
+## PPG 시그널 전처리 서베이
 
 <aside>
-💡 유의할 점
-
-대부분의 TensorFlow Lite 연산은 부동 소수점(`float32`) 및 양자화된(`uint8`, `int8`) 추론을 모두 대상으로 하지만, 많은 연산은 아직 [tf.float16](https://www.tensorflow.org/api_docs/python/tf?hl=ko#float16) 및 문자열과 같은 다른 유형을 처리하지 않는다.
+💡 수면단계 판별을 위하 PPG 시그널에서 심박수를 추출하고 이를 딥러닝 모델에 입력하기까지의 과정을 서베이함.   
 
 </aside>
 
-### 안되는 연산
 
-- [tf.add](https://www.tensorflow.org/api_docs/python/tf/math/add?hl=ko)
-- [tf.debugging.check_numerics](https://www.tensorflow.org/api_docs/python/tf/debugging/check_numerics?hl=ko)
-- [tf.constant](https://www.tensorflow.org/api_docs/python/tf/constant?hl=ko)
-- tf.div
-- [tf.divide](https://www.tensorflow.org/api_docs/python/tf/math/divide?hl=ko)
-- tf.fake_quant_with_min_max_args
-- tf.fake_quant_with_min_max_vars
-- [tf.identity](https://www.tensorflow.org/api_docs/python/tf/identity?hl=ko)
-- [tf.maximum](https://www.tensorflow.org/api_docs/python/tf/math/maximum?hl=ko)
-- [tf.minimum](https://www.tensorflow.org/api_docs/python/tf/math/minimum?hl=ko)
-- [tf.multiply](https://www.tensorflow.org/api_docs/python/tf/math/multiply?hl=ko)
-- [tf.no_op](https://www.tensorflow.org/api_docs/python/tf/no_op?hl=ko)
-- tf.placeholder
-- tf.placeholder_with_default
-- [tf.realdiv](https://www.tensorflow.org/api_docs/python/tf/realdiv?hl=ko)
-- [tf.reduce_max](https://www.tensorflow.org/api_docs/python/tf/math/reduce_max?hl=ko)
-- [tf.reduce_min](https://www.tensorflow.org/api_docs/python/tf/math/reduce_min?hl=ko)
-- [tf.reduce_sum](https://www.tensorflow.org/api_docs/python/tf/math/reduce_sum?hl=ko)
-- tf.rsqrt
-- [tf.shape](https://www.tensorflow.org/api_docs/python/tf/shape?hl=ko)
-- [tf.sqrt](https://www.tensorflow.org/api_docs/python/tf/math/sqrt?hl=ko)
-- [tf.square](https://www.tensorflow.org/api_docs/python/tf/math/square?hl=ko)
-- [tf.subtract](https://www.tensorflow.org/api_docs/python/tf/math/subtract?hl=ko)
-- [tf.tile](https://www.tensorflow.org/api_docs/python/tf/tile?hl=ko)
-- [tf.nn.batch_norm_with_global_normalization](https://www.tensorflow.org/api_docs/python/tf/nn/batch_norm_with_global_normalization?hl=ko)
-- [tf.nn.bias_add](https://www.tensorflow.org/api_docs/python/tf/nn/bias_add?hl=ko)
-- tf.nn.fused_batch_norm
-- [tf.nn.relu](https://www.tensorflow.org/api_docs/python/tf/nn/relu?hl=ko)
-- [tf.nn.relu6](https://www.tensorflow.org/api_docs/python/tf/nn/relu6?hl=ko)
-
-<aside>
-💡 이러한 연산의 대부분은 TensorFlow Lite에서 대응하는 연산이 없으며, 이들 연산을 제거하거나 융합할 수 없는 경우 해당 모델을 변환할 수 없다.
-
-</aside>
-
-- `CALL`
-- `CONCAT_EMBEDDINGS`
-- `CUSTOM`
-- `EMBEDDING_LOOKUP_SPARSE`
-- `HASHTABLE_LOOKUP`
-- `LSH_PROJECTION`
-- `SKIP_GRAM`
-- `SVDF`
-
-<aside>
-💡 다음 TensorFlow Lite 연산도 제공되지만 사용자 정의 모델에 사용할 준비가 되지 않았다.
-
-</aside>
-
-### 변환 코드
-
-다음과 같은 코드를 통해 TFLite 모델로 변환이 가능하다.
-
-```python
-# Converting a SavedModel to a TensorFlow Lite model.
-converter = tf.lite.TFLiteConverter.from_saved_model(saved_model_dir)
-tflite_model = converter.convert()
-
-# Converting a tf.Keras model to a TensorFlow Lite model.
-converter = tf.lite.TFLiteConverter.from_keras_model(model)
-tflite_model = converter.convert()
-```
-
-### 결론
-
-**어떤 모델을 tflite로 변환하기 이전에 그 모델 구조를 파악하고 모델에 있는 연산이 tflite 만의 연산으로 전환이 가능한지를 확인해야 한다.**
-
-### 전처리 과정 요약 및 결론
-
-지난주에 다음과 같은 심박수 데이터를 전처리를 통해 정규화시키고 라벨링과 매핑시키는 것을  성공했었다. 
+지난주에 다음과같은 심박수 데이터를 전처리를 통해 정규화시키고 라벨링과 매핑시키는 것을  성공했었다. 
 
 ![](/assets/images/W4/pj8.png)
 
 ![](/assets/images/W4/pj9.png)
 
-전처리는 다음과 같은 과정을 통해 이루어졌다.
+전처리는 다음과 같은 과정을 통해 이루어졌으며, 해당 심박수 데이터를 추출하기 위해선 근본적으로 PPG 시그널에서의 전처리 작업 및 특징 추출이 굉장히 중요하다.  
+따라서 심박센서의 수령 전까지 PPG 시그널의 적절한 노이즈 필터링 및 전처리 작업에 대한 조사를 진행하고, 적용할 만한 방법들을 추려 적용 계획을 세워본다.   
 
 1. 심박수 데이터 라벨링 데이터 시간 동기화
 2. 유효한 interval 찾고 unscored 된 심박수와 라벨링 잘라내기 
@@ -334,12 +222,6 @@ tflite_model = converter.convert()
 5. 가우시안 정규화와 표준편차를 취하기  
 
 
-## PPG 시그널 전처리 서베이
-
-<aside>
-💡 수면단계 판별을 위하 PPG 시그널에서 심박수를 추출하고 이를 딥러닝 모델에 입력하기까지의 과정을 서베이함.
-
-</aside>
 
 - **PPG 시그널 및 전처리 필요성**
 
@@ -350,6 +232,12 @@ tflite_model = converter.convert()
 ![](/assets/images/W4/pj10.png)
 
  위와 같은 노이즈가 존재하기 때문에, PPG 신호 분석에는 여러 가지 어려움이 있어 PPG에서 신뢰할 수 있는 정보를 추출하는 것이 중요한 작업이다. 여러 생리학적 변화를 나타내는만큼, 그 중 일부인 심박수만을 추출하여 작업에 사용해야만한다. 
+ <aside>
+💡 여기서 주의할 부분은, 신체의 움직임으로 인한 주파수 노이즈를 고려해야 한다는 것이다. 일반적으로 사용되는 웨어러블 디바이스의 경우 보행 및 달리기를 포함한 생활환경에서도 PPG센서가 작동하기 때문에 이러한 외부활동으로 인한 노이즈(움직임 아티팩트)가 PPG 시그널에 포함될 수 있다. 우리 디바이스의 경우 격력한 신체활동은 포함되지 않아 위와 같은 걱정은 크게 존재하지 않지만, **진동 자극이 가해질 경우 해당 진동의 주파수와 몸의 뒤척임이 PPG 시그널의 주파수 영역에 영향을 주게될 가능성이 존재한다. 이런 문제가 발생할 경우 Raw PPG 시그널이 기존과는 다른 노이즈로 오염되기 때문에 해당 문제 확인을 위해 실제 테스트를 진행해 보고, 적절한 솔루션을 찾아야할 것으로 보인다.**
+해당 문제의 솔루션을 아직 발견하지 못했으며, 추후에 서베이를 다시 진행하여 적절한 해결방안을 고려해보겠음.
+</aside>
+
+
 
 - **필터링 방법(노이즈 제거)**
 
@@ -359,11 +247,25 @@ tflite_model = converter.convert()
 
  뿐만 아니라, 바이오의학 신호 처리 분야에서 가장 일반적으로 사용되는 필터링 기술로 이동 평균 필터링(Moving Average Filtering)이 존재한다. 이 필터는 미리 지정한 sliding window 크기의 샘플의 평균 값, 혹은 중앙값으로 해당 포인트값을 결정하는 필터링 방법이다. **해당 필터링 기술을 이용하여 HPF으로 추출된 고주파 PPG 시그널에 대하여 MA Filtering을 적용하여 최종적으로 고주파 시그널의 노이즈까지 필터링하는 것 또한 적합해보인다.**
 
- 그러나 주파수 범위 내에서 발생하는 노이즈(예: 걷기로 인한 움직임 아티팩트, 이때 발걸음의 주파수가 심장 박동과 유사할 수 있음)를 감쇠하기 위해서는 추가적인 과정이 필요하다.
+
+### 전처리 단계 추후 작업
+
+- PPG 시그널의 적절한 전처리 방법을 서베이하였으며, 차주에 이를 적용할 수 있는 전처리 코드 완성 예정.
+- 전처리 성능 비교를 위해 추후 손목 디바이스가 완성되어 스마트워치와의 성능비교 테스트를 수행할 때 두가지 경우(전처리 적용, 미적용)를 동시에 계산하여 성능의 변화를 요약해보겠음.
+- 이외에도 **Time Domain에서의 PPG 전처리 기법인**
+    1. Detection of maxima from the PPG
+    2. Identification of maxima from the 2nd derivative of the PPG
+    3. Detection of maximum upslopes using the first derivative
+    4. Identification of pulse onsets using Wavelet transform
+    
+    를 구체적으로 조사하며 적용가능성을 판단할 것임.
+
 
 --- 
 
+
 ## To do
-- 모델이 완성되었다. 이를 tflite 언어의 모델로 바꾼후 flutter에 모델을 이식하여야한다. 또한 flutter에서 정확한 구동을 확인하여야한다. 
-- 우리가 완성한 모델은 우리가 만든 데이터셋이 아닌 받아온 데이터셋이므로 데이터 우리가 수면하면서 자체적으로 데이터셋과 같은 특징추출 및 전처리를 진행하여 모델에 추론을 맞출 수 있게 하여한다.
-- 하지만 우리가 센서로부터 받아오는 값은 심박수가 아닌 pleth 데이터일 것이다. 따라서 우리는 해당 데이터를 지난 번에 완성했던 심박수 추출 과정을 통해 심박수로 바꿔줄 것이며 바꿔진 심박수 데이터를 전처리했던 과정과 마찬가지로 가우시안 정규화와 표준편차를 취해줘 학습했던 데이터와 동일한 형태로 추론(수면단계)을/를 얻어낼 것이다.
+ - **지난 금요일 심박센서까지 배달이 완료되었다. 바로 실측을 측정하여 하드웨어 설계도를 수정하고, 3D 프린트 케이스 제작 및 모듈 납땜 실시 예정(과사 연락 완료)**
+ - 모델이 완성되었다. 이를 tflite 언어의 모델로 바꾼후 flutter에 모델을 이식하여야한다. 또한 flutter에서 정확한 구동을 확인하여야한다. 
+ - 우리가 완성한 모델은 우리가 만든 데이터셋이 아닌 받아온 데이터셋이므로 데이터 우리가 수면하면서 자체적으로 데이터셋과 같은 특징추출 및 전처리를 진행하여 모델에 추론을 맞출 수 있게 하여한다.
+ - 하지만 우리가 센서로부터 받아오는 값은 심박수가 아닌 pleth 데이터일 것이다. 따라서 우리는 해당 데이터를 지난 번에 완성했던 심박수 추출 과정을 통해 심박수로 바꿔줄 것이며 바꿔진 심박수 데이터를 전처리했던 과정과 마찬가지로 가우시안 정규화와 표준편차를 취해줘 학습했던 데이터와 동일한 형태로 추론(수면단계)을/를 얻어낼 것이다.
