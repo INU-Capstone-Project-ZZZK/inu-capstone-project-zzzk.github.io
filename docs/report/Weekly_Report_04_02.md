@@ -88,87 +88,7 @@ nav_order: 1
 2638030_hr_feature.out
 2638030_psg_labels.out
 2638030_time_feature.out
-3509524_cosine_feature.out
-3509524_hr_feature.out
-3509524_psg_labels.out
-3509524_time_feature.out
-3997827_cosine_feature.out
-3997827_hr_feature.out
-3997827_psg_labels.out
-3997827_time_feature.out
-4018081_cosine_feature.out
-4018081_hr_feature.out
-4018081_psg_labels.out
-4018081_time_feature.out
-4314139_cosine_feature.out
-4314139_hr_feature.out
-4314139_psg_labels.out
-4314139_time_feature.out
-4426783_cosine_feature.out
-4426783_hr_feature.out
-4426783_psg_labels.out
-4426783_time_feature.out
-5132496_cosine_feature.out
-5132496_hr_feature.out
-5132496_psg_labels.out
-5132496_time_feature.out
-5383425_cosine_feature.out
-5383425_hr_feature.out
-5383425_psg_labels.out
-5383425_time_feature.out
-5498603_cosine_feature.out
-5498603_hr_feature.out
-5498603_psg_labels.out
-5498603_time_feature.out
-5797046_cosine_feature.out
-5797046_hr_feature.out
-5797046_psg_labels.out
-5797046_time_feature.out
-6220552_cosine_feature.out
-6220552_hr_feature.out
-6220552_psg_labels.out
-6220552_time_feature.out
-7749105_cosine_feature.out
-7749105_hr_feature.out
-7749105_psg_labels.out
-7749105_time_feature.out
-8000685_cosine_feature.out
-8000685_hr_feature.out
-8000685_psg_labels.out
-8000685_time_feature.out
-8173033_cosine_feature.out
-8173033_hr_feature.out
-8173033_psg_labels.out
-8173033_time_feature.out
-8258170_cosine_feature.out
-8258170_hr_feature.out
-8258170_psg_labels.out
-8258170_time_feature.out
-8530312_cosine_feature.out
-8530312_hr_feature.out
-8530312_psg_labels.out
-8530312_time_feature.out
-8686948_cosine_feature.out
-8686948_hr_feature.out
-8686948_psg_labels.out
-8686948_time_feature.out
-8692923_cosine_feature.out
-8692923_hr_feature.out
-8692923_psg_labels.out
-8692923_time_feature.out
-9106476_cosine_feature.out
-9106476_hr_feature.out
-9106476_psg_labels.out
-9106476_time_feature.out
-9618981_cosine_feature.out
-9618981_hr_feature.out
-9618981_psg_labels.out
-9618981_time_feature.out
-9961348_cosine_feature.out
-9961348_hr_feature.out
-9961348_psg_labels.out
-9961348_time_feature.out
-
+...
 ```
 여기서 4가지 카테고리로 나눌 수 있음.
 - `cosine_features`
@@ -290,7 +210,7 @@ plt.show()
 epoch를 3000번 해 보았는데 그래프를 보면 에포크 1000번에서 멈추는 것이 overfitting을 줄이기에 좋은 epoch이다.
 ![](/assets/images/W4/pj4.png)
 
-
+![](/assets/images/W4/pj5.png)
 에포크를 1000번으로 줄여서 overfitting을 방지하였다. 
 
 정확도는 78% 정도로 비교적 정확하다. 우리가 하려는 것은 수면 단계를 정확히 파악하는 것이 아닌 사용자가 잠을 잘 자는지 추론하는 것이기 때문이다.
