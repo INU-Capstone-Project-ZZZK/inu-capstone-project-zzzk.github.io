@@ -70,9 +70,9 @@ nav_order: 1
 
 (현재 이용가능한 애플워치가 없기 때문에 IOS외에도 Android에서 구동 가능한 방법 위주로 조사하였다.)
 
-### **flutter_health_connect** 라이브러리
+### flutter_health_connect 라이브러리
 
-[flutter_health_connect | Flutter package](https://pub.dev/packages/flutter_health_connect)
+[Flutter package](https://pub.dev/packages/flutter_health_connect)
 
 플러터에서 Android/IOS 스마트폰에 설치된 구글 피트니스 앱의 데이터에 접근하도록 해주는 라이브러리 이다. 해당 라이브러리를 이용하여 예제 앱을 설정하였고, 권한 부여 및 Manifest 세팅도 제공된 메뉴얼대로 해주었으나 연동을 위한 **“헬스 커넥트” 권한을 얻는데 반복적으로 에러가 발생하였다**. 라이브러리를 배포한 개발자의 저장소에서 이와 동일한 에러를 겪은 사람들이 피드백을 남긴 것을 다수 확인하였고 현재는 해결이 되어있지 않아 포기하였다
 
@@ -83,9 +83,9 @@ nav_order: 1
 
 구글 피트니스 외에도 갤럭시 스마트폰의 기본 어플인 Samsung Health를 이용해서 갤럭시 워치에서 실시간으로 측정되는 심박수 정보를 알 수 있다. Flutter에서도 정보에 접근하기 위한 라이브러리가 존재하며, 이때 이용되는 것이 Android 개발용 SDK인 Samsung Health SDK이나 **해당 SDK를 사용하기 위해선 파트너 협약을 맺은 곳만 사용가능하다는 제약이 존재했다.**
 
-[samsung_health_handler | Flutter package](https://pub.dev/packages/samsung_health_handler)
+[samsung_health_handler Flutter package](https://pub.dev/packages/samsung_health_handler)
 
-[Samsung Health SDK for Android | Samsung Developer](https://developer.samsung.com/health/android/overview.html)
+[Samsung Health SDK for Android Samsung Developer](https://developer.samsung.com/health/android/overview.html)
 
 > 앱 배포는 하지 않을 것이며 개인적인 개발을 위해 사용이 가능하냐는 질문이 삼성 포럼에 올라와있었지만, 개발진 측에서 2019년 EU GDPR 규약 이후 아예 불가능하다는 답변이 달려있는 모습이다. 아쉽지만 이용은 불가능해보인다.
 > 
@@ -125,9 +125,9 @@ nav_order: 1
 심박수 데이터가 응답으로 제공되는 위의 패킷을 분석하여 다음과 같은 정보를 얻을 수 있었다.
 
 <aside>
-💡 **- 소유한 미밴드의 MAC 주소
-- 심박수 제공 서비스의 UUID
-- 심박수 제공 서비스의 특성 UUID**
+ - 소유한 미밴드의 MAC 주소
+ - 심박수 제공 서비스의 UUID 
+ - 심박수 제공 서비스의 특성 UUID
 
 </aside>
 
@@ -376,9 +376,136 @@ X축에 대해 정리하면  angle_tmpx = angle_fix + angle_gyx * dt 가 된�
 
 
 
+---
 
 
+## 딥러닝 모델 추출
 
+4월 2주차에 만든 수면단계 판별 모델의 검증 정확도는 78%로 비교적 정확하였다. 하지만 이 모델을 tflite로 변환하는 과정에서 검증 정확도가 69%로 약 10% 하락하였다. 예상되는 원인은 총 3가지로 예상된다.
+
+- 모델이 변환되면서 생기는 연산의 왜곡
+- 모델이 변환되면서 float형식의 변환 float-64에서 float-32
+- 모델이 변환되면서 시퀀스 길이가 1로 고정
+
+여기서 어떤것이 원인인가 알아보기 위하여 모델의 구조를 한번 살펴보았다.
+
+![](/assets/images/W6/p25.png)
+
+h5파일을 tflite로 변환한 코드는 다음과 같다.
+
+```python
+import tensorflow as tf
+
+# Load the existing TensorFlow model
+model = tf.keras.models.load_model('/content/my_model.h5')
+
+# Convert the model to TensorFlow Lite
+converter = tf.lite.TFLiteConverter.from_keras_model(model)
+converter.target_spec.supported_ops = [
+    tf.lite.OpsSet.TFLITE_BUILTINS,  # Enable TensorFlow Lite ops.
+    tf.lite.OpsSet.SELECT_TF_OPS    # Enable Select TF ops.
+]
+converter._experimental_lower_tensor_list_ops = False #tensor의 연산수 감소 x
+
+# Convert the model to TensorFlow Lite
+tflite_model = converter.convert()
+
+# Save the TFLite model to a file
+with open('/content/my_model.tflite', 'wb') as f:
+    f.write(tflite_model)
+
+print("Model has been converted to TFLite and saved.")
+
+```
+
+여기서 연산에 왜곡이 없었음을 알수 있었다. 그러면 원인은 크게 두가지로 나눠볼 수 있는데, 첫번째로, h5 모델이 float-64 형식이었는데, 이가 tflite로 변환되면서 float-32로 변환된 것이고. 두번째로, tflite 모델에서는 시퀀스 길이를 1로 고정시킨 것이 성능 하락이다. 이 두가지 원인은 필연적인 것 이므로 이는 accurancy의 감소는 필연적으로 일어나는 것임을 알 수 있다. 그렇다면 h5 모델의 accurancy를 향상 시켜 accurancy가 감소하더라도 변환된 모델이 일정한 accurancy를 유지하면 되는 것이다. 
+
+
+### 모델 정확도 향상
+
+모델의 정확도를 향상시키기 위한 방법으로 class의 갯수를 줄여서 예측하게 하였다. 먼저 우리의 모델은 수면 단계를 0~5단계로 총 6개의 class가 존재하는데 이를 0~2 단계로 줄여서 예측을 진행하게 하였다. 우리의 모델은 깨어있음, 얕은 수면, 깊은 수면 단계가 필요하기에 나머지 단계들은 모두 2단계로 바꾸어 진행하였다.
+
+![](/assets/images/W6/p26.png)
+
+수면단계
+
+```python
+import numpy as np
+import os
+import matplotlib.pyplot as plt
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense, LSTM
+from tensorflow.keras.utils import to_categorical
+from sklearn.model_selection import train_test_split
+
+def load_feature_data(base_path, feature_pattern):
+    all_data = []
+    for filename in os.listdir(base_path):
+        if feature_pattern in filename:
+            file_path = os.path.join(base_path, filename)
+            try:
+                # Load all data from file
+                data = np.loadtxt(file_path)
+                if data.ndim == 1:  # Ensure data is two-dimensional
+                    data = data.reshape(-1, 1)
+                all_data.append(data)
+            except Exception as e:
+                print(f"Error reading {file_path}: {e}")
+    if all_data:
+        return np.concatenate(all_data, axis=0)
+    return np.array([])  # Return an empty array if no data
+
+# Set file path
+base_path = '/content/drive/MyDrive/features'
+
+# Load all feature data
+cosine_features = load_feature_data(base_path, 'cosine_feature')
+hr_features = load_feature_data(base_path, 'hr_feature')
+time_features = load_feature_data(base_path, 'time_feature')
+psg_labels = load_feature_data(base_path, 'psg_labels')  # Assuming this is the label data
+
+# Modify labels as required (limit classes to 0, 1, 2)
+psg_labels = np.where(psg_labels >= 3, 2, psg_labels)
+y_one_hot = to_categorical(psg_labels, num_classes=3)
+
+# Combine features into one array (adjust as necessary)
+features = np.stack([cosine_features, hr_features, time_features], axis=1)
+
+print(features.shape)
+print(psg_labels.shape)
+
+# Reshape data to include time step dimension for LSTM
+X = features.reshape(features.shape[0], features.shape[1], 1)  # Adding time dimension
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y_one_hot, test_size=0.2, random_state=42)
+
+# Construct the model
+model = Sequential([
+    LSTM(50, activation='tanh', recurrent_activation='sigmoid', input_shape=(X_train.shape[1], X_train.shape[2]), dropout=0, recurrent_dropout=0),
+    Dense(100, activation='relu'),
+    Dense(50, activation='relu'),
+    Dense(25, activation='relu'),
+    Dense(3, activation='softmax')  # Change the output layer to match the number of classes
+])
+
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+
+history = model.fit(X_train, y_train, epochs=3000, validation_split=0.2)
+
+model.save('my_model.h5')
+
+loss, accuracy = model.evaluate(X_test, y_test)
+print(f"Test Accuracy: {accuracy*100:.2f}%")
+```
+
+
+![](/assets/images/W6/p27.png)
+
+![](/assets/images/W6/p28.png)
+
+
+h5모델을 불러와서 모델 정확도를 측정한 결과 91.8%의 accurancy가 나왔다. 이는 class가 3개로 줄어들었기 때문에 accurancy가 향상 된 것으로 보인다. tflite파일의 accurancy도 78.2%의 정확도가 나왔다. 비록 12% 정도 accurancy가 감소하였지만 78%의 비교적 높은 정확도를 보였다.
 
 
 
