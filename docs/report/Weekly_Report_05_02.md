@@ -316,11 +316,11 @@ def cosine_proxy(time):
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/835c96ef-fbea-4c33-b7f4-98b8bcea80cd/Untitled.png)
 
-1. 클래스 2 **(왼쪽을 보며 누운 자세)**
+2. 클래스 2 **(왼쪽을 보며 누운 자세)**
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/17d01996-590f-4f7f-a398-373162ea496d/Untitled.png)
 
-1. 클래스 3 **(오른쪽을 보며 누운 자세)**
+3. 클래스 3 **(오른쪽을 보며 누운 자세)**
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/cb8df532-3c93-49a1-8095-5a2f10eff6d5/Untitled.png)
 
@@ -328,7 +328,7 @@ def cosine_proxy(time):
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/6ac8c5b0-5719-44a4-85bb-8b06254a3285/Untitled.png)
 
-1. 클래스 4 **(엎드려 누운 자세)**
+4. 클래스 4 **(엎드려 누운 자세)**
 
 ![Untitled](https://prod-files-secure.s3.us-west-2.amazonaws.com/4ef627f8-7a9c-461b-802f-4bff090c16e9/11da8bbc-154c-4ce6-87be-11434c5370b5/Untitled.png)
 
