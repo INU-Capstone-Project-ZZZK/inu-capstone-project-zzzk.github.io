@@ -52,9 +52,9 @@ nav_order: 1
 
 ![](/assets/images/W7/1.png)
 
-![](/assets/images/W7/2.png)
+![](/assets/images/W7/2.jpg)
 
-![](/assets/images/W7/3.png)
+![](/assets/images/W7/3.jpg)
 
  지난 한 주동안 데이터 저장 환경 세팅을 끝냈고, 미밴드와 갤럭시워치를 동시에 착용하여 심박수와 수면 정보를 수집하였다. 하지만 미밴드는 폐기되었기 때문에 처분해야한다. 시간을 낭비해서 다음 일정에 속도를 내야함.
 
